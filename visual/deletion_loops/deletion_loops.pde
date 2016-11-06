@@ -98,14 +98,14 @@ void oscEvent(OscMessage theOscMessage) {
   } else if (theOscMessage.checkAddrPattern("/amp")) {
     float ampMessage = theOscMessage.get(0).floatValue();
     targetRadius = map(ampMessage, 0, 1, MIN_RADIUS, MAX_RADIUS);
-    radiusIncrement = floor((targetRadius - radius)/(fps/2));
+    radiusIncrement = floor((targetRadius - radius)/(fps/5));
   }
 }
 
 /** 
-  Expects numbers retrieved from OSC in the range of 0 - 1.
-  This class will then map them to the range of 0 - TWO_PI.
-  */
+ Expects numbers retrieved from OSC in the range of 0 - 1.
+ This class will then map them to the range of 0 - TWO_PI.
+ */
 class CutRegion {
   float startPos, cutLength;
   public CutRegion(float startPos, float cutLength) {

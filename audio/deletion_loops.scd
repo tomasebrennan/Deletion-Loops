@@ -2,7 +2,7 @@ s.boot;
 
 a = NetAddr.new("127.0.0.1", 7771);
 //specify loop here
-b = Buffer.read(s, Platform.resourceDir +/+ "sounds/a11wlk01.wav");
+b = Buffer.read(s, Platform.resourceDir +/+ "sounds/moonlight_loop.wav");
 //buffer containing modified loop
 c = Buffer.alloc(s, (b.numFrames / b.numChannels), 1);
 
@@ -22,7 +22,7 @@ SynthDef(\playback, { arg out = 0, bufnum = 0, cutLevel = 1, cutStart = 0, cutLe
 	playbuf = PlayBuf.ar(1,bufnum, doneAction: 2);
 	recordBuf = playbuf * EnvGen.kr(Env.step([1, cutLevel, 1], [cutStart, cutLength, 0]));
 	RecordBuf.ar(recordBuf, bufnum, doneAction: 2, loop: 0);
-		SendReply.kr(Impulse.kr(2), '/amp', Amplitude.kr(playbuf), 1905);
+		SendReply.kr(Impulse.kr(5), '/amp', Amplitude.kr(playbuf), 1905);
 	Out.ar(out,
 		GVerb.ar(
         playbuf,
@@ -45,13 +45,13 @@ var cutLevel = 1;
 var cutStart = 0;
 var cutLength = 0;
 //tweak these values to effectively control the length of the piece
-var coinValue = 0.4;
-var degradeModifier = 0.01;
-var maxPossibleCutLength = 1/6;
+var coinValue = 0.3;
+var degradeModifier = 0.02;
+var maxPossibleCutLength = 1/12;
 var cutStartMap, cutLengthMap;
 
 //set this for a repeatable performance
-thisThread.randSeed = 1923;
+thisThread.randSeed = 179;
 a.sendMsg("/speed", loopLengthInSeconds);
 
 t = Task({
